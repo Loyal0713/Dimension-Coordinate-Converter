@@ -1,5 +1,5 @@
 # Dimension Coordinate Convertor
-
+dev
 ## Setup
 Just like any other mod, place into your mod folder. This is a client-side mod so it's not necessary to put into the server-side mod folder.
 
