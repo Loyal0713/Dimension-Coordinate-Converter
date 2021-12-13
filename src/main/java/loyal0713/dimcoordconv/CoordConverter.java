@@ -43,7 +43,9 @@ public class CoordConverter implements ModInitializer {
 
                 // get player coordinates and rotation
                 int playerX, playerY, playerZ;
-                double playerRot = (int)client.player.getYaw();
+                double playerRot = (client.player.headYaw + 180) % 360;
+                LOGGER.info(playerRot);
+
                 try {
                     playerX = (int)client.player.getX();
                     playerY = (int)client.player.getY();
@@ -67,17 +69,10 @@ public class CoordConverter implements ModInitializer {
 
                 // convert rotation to heading
                 // facing right side of compass
-                if(playerRot < 0) {
-                    if (playerRot <= -135) message.append("north");
-                    else if (playerRot > -45) message.append("south");
-                    else message.append("east");
-
-                } else {
-                    // facing north
-                    if (playerRot >= 135) message.append("north");
-                    else if (playerRot < 45) message.append("south");
-                    else message.append("west");
-                }
+                if(45 <= playerRot && playerRot < 135) message.append("east");
+                else if(135 <= playerRot && playerRot < 225) message.append("south");
+                else if(225 <= playerRot && playerRot < 315) message.append("west");
+                else message.append("north");
 
                 // tell player translated coords and direction
                 client.player.sendMessage(new LiteralText(message.toString()), false);
