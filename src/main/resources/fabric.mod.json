@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "dimcoordconv",
-  "version": "1.1.0",
+  "version": "1.1.1",
 
   "name": "Dimension Coordinate Converter",
   "description": "Converts your overworld coordinates to nether coordinates and vice versa!",
