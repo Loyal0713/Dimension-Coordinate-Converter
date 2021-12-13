@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "dimcoordconv",
-  "version": "1.0.0",
+  "version": "1.1.0",
 
   "name": "Dimension Coordinate Converter",
   "description": "Converts your overworld coordinates to nether coordinates and vice versa!",
@@ -26,8 +26,5 @@
     "fabric": "*",
     "minecraft": "1.18.x",
     "java": ">=16"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
