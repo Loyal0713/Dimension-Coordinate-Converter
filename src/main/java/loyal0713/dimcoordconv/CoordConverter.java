@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.CallbackI;
 
 public class CoordConverter implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("dimcoordconv");
@@ -40,8 +41,9 @@ public class CoordConverter implements ModInitializer {
                 // no end conversion
                 if (world.equals(World.END.getValue())) return;
 
-                // get player coordinates
+                // get player coordinates and rotation
                 int playerX, playerY, playerZ;
+                double playerRot = (int)client.player.getYaw();
                 try {
                     playerX = (int)client.player.getX();
                     playerY = (int)client.player.getY();
@@ -51,19 +53,33 @@ public class CoordConverter implements ModInitializer {
                     return;
                 }
 
-                // convert and build message
+                // convert coords
                 StringBuilder message = new StringBuilder();
                 if (world.equals(World.OVERWORLD.getValue())) {
                         int translatedX = playerX / 8;
                         int translatedZ = playerZ / 8;
-                        message.append(String.format("Nether: %d, %d, %d", translatedX, playerY, translatedZ));
+                        message.append(String.format("Nether: %d, %d, %d, ", translatedX, playerY, translatedZ));
                 } else {    // in nether
                     int translatedX = playerX * 8;
                     int translatedZ = playerZ * 8;
-                    message.append(String.format("Overworld: %d, %d, %d", translatedX, playerY , translatedZ));
+                    message.append(String.format("Overworld: %d, %d, %d, ", translatedX, playerY , translatedZ));
                 }
 
-                // tell player translated coords
+                // convert rotation to heading
+                // facing right side of compass
+                if(playerRot < 0) {
+                    if (playerRot <= -135) message.append("north");
+                    else if (playerRot > -45) message.append("south");
+                    else message.append("east");
+
+                } else {
+                    // facing north
+                    if (playerRot >= 135) message.append("north");
+                    else if (playerRot < 45) message.append("south");
+                    else message.append("west");
+                }
+
+                // tell player translated coords and direction
                 client.player.sendMessage(new LiteralText(message.toString()), false);
             }
         });
