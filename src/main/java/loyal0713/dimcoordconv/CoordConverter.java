@@ -21,10 +21,10 @@ public class CoordConverter implements ModInitializer {
     public void onInitialize() {
         // add key listener
         keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.dimcoordconv.convert",
+                "Display converted coords",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_F9,
-                "translate.dimcoordconv"
+                "Coordinate Converter"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
