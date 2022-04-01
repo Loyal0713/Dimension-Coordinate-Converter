@@ -27,6 +27,9 @@ public class CoordConverter implements ModInitializer {
                 "Coordinate Converter"
         ));
 
+        ConfigBuilder builder = ConfigBuilder.create();
+
+        // event to register
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (keyBinding.wasPressed()) {
                 // can sometimes be null
