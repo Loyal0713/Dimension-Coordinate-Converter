@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.CallbackI;
 
 public class CoordConverter implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("dimcoordconv");
@@ -26,8 +25,6 @@ public class CoordConverter implements ModInitializer {
                 GLFW.GLFW_KEY_F9,
                 "Coordinate Converter"
         ));
-
-        ConfigBuilder builder = ConfigBuilder.create();
 
         // event to register
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -47,7 +44,6 @@ public class CoordConverter implements ModInitializer {
                 // get player coordinates and rotation
                 int playerX, playerY, playerZ;
                 double playerRot = (client.player.headYaw + 180) % 360;
-                LOGGER.info(playerRot);
 
                 try {
                     playerX = (int)client.player.getX();
