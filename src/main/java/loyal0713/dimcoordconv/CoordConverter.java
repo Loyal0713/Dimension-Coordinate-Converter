@@ -26,6 +26,9 @@ public class CoordConverter implements ModInitializer {
                 "Coordinate Converter"
         ));
 
+        Config.readConfigFile();
+        LOGGER.error(Config.getShowFacing() + " " + Config.getShowInActionBar());
+
         // event to register
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (keyBinding.wasPressed()) {
@@ -43,7 +46,6 @@ public class CoordConverter implements ModInitializer {
 
                 // get player coordinates and rotation
                 int playerX, playerY, playerZ;
-                double playerRot = (client.player.headYaw + 180) % 360;
 
                 try {
                     playerX = (int)client.player.getX();
@@ -59,22 +61,21 @@ public class CoordConverter implements ModInitializer {
                 if (world.equals(World.OVERWORLD.getValue())) {
                         int translatedX = playerX / 8;
                         int translatedZ = playerZ / 8;
-                        message.append(String.format("Nether: %d, %d, %d, ", translatedX, playerY, translatedZ));
+                        message.append(String.format("Nether: %d, %d, %d", translatedX, playerY, translatedZ));
                 } else {    // in nether
                     int translatedX = playerX * 8;
                     int translatedZ = playerZ * 8;
-                    message.append(String.format("Overworld: %d, %d, %d, ", translatedX, playerY , translatedZ));
+                    message.append(String.format("Overworld: %d, %d, %d", translatedX, playerY , translatedZ));
                 }
 
-                // convert rotation to heading
-                // facing right side of compass
-                if(45 <= playerRot && playerRot < 135) message.append("east");
-                else if(135 <= playerRot && playerRot < 225) message.append("south");
-                else if(225 <= playerRot && playerRot < 315) message.append("west");
-                else message.append("north");
+                // use camera entity facing direction
+                if(Config.getShowFacing()) {
+                    message.append(", " + client.getCameraEntity().getHorizontalFacing().asString());
+                }
 
-                // tell player translated coords and direction
-                client.player.sendMessage(Text.of(message.toString()), false);
+                // send msg
+                client.player.sendMessage(Text.of(message.toString()), Config.getShowInActionBar());
+
             }
         });
     }
