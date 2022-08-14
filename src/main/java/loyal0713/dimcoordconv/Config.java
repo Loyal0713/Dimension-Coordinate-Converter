@@ -1,7 +1,5 @@
 package loyal0713.dimcoordconv;
 
-import org.apache.commons.io.output.FileWriterWithEncoding;
-import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
