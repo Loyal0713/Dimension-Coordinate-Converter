@@ -8,7 +8,7 @@ While in game, press F9 to convert your current player coordinates to the corres
 Note: The block taken into account for the conversion is the block on which the player is located
 
 
-## To Do
+## To Do 
 - Add mod config page
   - Turn off mod 
   - Toggle facing direction display?
