@@ -1,8 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "dimcoordconv",
-  "version": "1.1.2",
-
+  "version": "${version}",
   "name": "Dimension Coordinate Converter",
   "description": "Converts your overworld coordinates to nether coordinates and vice versa!",
   "authors": [
@@ -22,10 +21,9 @@
   },
 
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.14.9",
     "fabric": "*",
-    "minecraft": "1.19.x",
-    "java": ">=16",
-    "cloth-config":"7.0.x"
+    "minecraft": "1.19.2",
+    "java": ">=17"
   }
 }
