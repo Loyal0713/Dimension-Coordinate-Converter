@@ -40,13 +40,11 @@ public class Config {
     public static void generateConfigFile() {
         String showInActionBarValue = "showInActionBar=false";
         String showFacingValue = "showFacing=true";
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("config/dimcoordconv.config"));
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("config/dimcoordconv.config"))){
             writer.write(showInActionBarValue);
             writer.newLine();
             writer.write(showFacingValue);
             writer.flush();
-            writer.close();
         } catch (IOException e) {
             LOGGER.error("Error writing default config file!");
         }

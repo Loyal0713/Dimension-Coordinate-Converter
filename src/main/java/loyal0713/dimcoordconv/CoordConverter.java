@@ -45,12 +45,12 @@ public class CoordConverter implements ModInitializer {
                 if (world.equals(World.END.getValue())) return;
 
                 // get player coordinates and rotation
-                int playerX, playerY, playerZ;
+                double playerX, playerY, playerZ;
 
                 try {
-                    playerX = (int)client.player.getX();
-                    playerY = (int)client.player.getY();
-                    playerZ = (int)client.player.getZ();
+                    playerX = client.player.getBlockX();
+                    playerY = client.player.getBlockY();
+                    playerZ = client.player.getBlockZ();
                 } catch (NullPointerException e) {
                     LOGGER.error(e);
                     return;
@@ -59,17 +59,17 @@ public class CoordConverter implements ModInitializer {
                 // convert coords
                 StringBuilder message = new StringBuilder();
                 if (world.equals(World.OVERWORLD.getValue())) {
-                        int translatedX = playerX / 8;
-                        int translatedZ = playerZ / 8;
-                        message.append(String.format("Nether: %d, %d, %d", translatedX, playerY, translatedZ));
+                    double translatedX = playerX / 8;
+                    double translatedZ = playerZ / 8;
+                    message.append(String.format("Nether: %.3f, %.3f, %.3f", translatedX, playerY, translatedZ));
                 } else {    // in nether
-                    int translatedX = playerX * 8;
-                    int translatedZ = playerZ * 8;
-                    message.append(String.format("Overworld: %d, %d, %d", translatedX, playerY , translatedZ));
+                    double translatedX = playerX * 8;
+                    double translatedZ = playerZ * 8;
+                    message.append(String.format("Overworld: %.3f, %.3f, %.3f", translatedX, playerY, translatedZ));
                 }
 
                 // use camera entity facing direction
-                if(Config.getShowFacing()) {
+                if (Config.getShowFacing()) {
                     message.append(", " + client.getCameraEntity().getHorizontalFacing().asString());
                 }
 
